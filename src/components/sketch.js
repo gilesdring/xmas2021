@@ -1,4 +1,3 @@
-let bgCol;
 const elves = [];
 
 function* activeElf(count) {
@@ -21,19 +20,24 @@ class Elf {
     push();
     noStroke();
     fill(this.color);
-    rect(this.x, this.y, this.width, this.height);
+    rect(
+      this.x * windowWidth,
+      this.y * windowHeight,
+      this.width * windowWidth,
+      this.height * windowHeight
+    );
     pop();
   }
 }
 
 export function setup() {
   createCanvas(windowWidth, windowHeight);
-  bgCol = 0;
+  clear();
   elves.push(
-    new Elf({ x: 0, y: 0, width: width / 2, height: height / 2, color: 0 }),
-    new Elf({ x: width/2, y: 0, width: width / 2, height: height / 2, color: 0 }),
-    new Elf({ x: 0, y: height/2, width: width / 2, height: height / 2, color: 0 }),
-    new Elf({ x: width/2, y: height/2, width: width / 2, height: height / 2, color: 0 }),
+    new Elf({ x: 0.15, y: 0.15, width: 0.2, height: 0.2, color: 0 }),
+    new Elf({ x: 0.65, y: 0.15, width: 0.2, height: 0.2, color: 0 }),
+    new Elf({ x: 0.15, y: 0.65, width: 0.2, height: 0.2, color: 0 }),
+    new Elf({ x: 0.65, y: 0.65, width: 0.2, height: 0.2, color: 0 })
   );
   const currentElf = activeElf(elves.length);
   const handleNote = (e) => {
@@ -44,10 +48,10 @@ export function setup() {
     );
   };
   window.addEventListener('playnote', handleNote);
+  clear();
 }
 
 export function draw() {
-  background(bgCol);
   elves.forEach((e) => e.draw());
 }
 
