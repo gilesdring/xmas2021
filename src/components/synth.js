@@ -1,6 +1,5 @@
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const ctx = new AudioContext();
-// const osc = ctx.createOscillator({ type: 'sine' });
 
 const dist = ctx.createWaveShaper();
 const env = ctx.createGain();
@@ -10,9 +9,6 @@ env.gain.value = 0;
 limiter.connect(ctx.destination);
 env.connect(limiter);
 dist.connect(env);
-// osc.connect(dist);
-
-// osc.start();
 
 const makeDistortionCurve = (amount) => {
   var k = typeof amount === 'number' ? amount : 50,
@@ -38,7 +34,7 @@ export const playNote = (freq) => {
   env.gain.setValueAtTime(1, startTime);
   osc.frequency.setValueAtTime(freq, startTime);
   env.gain.linearRampToValueAtTime(0, endTime);
-  osc.frequency.linearRampToValueAtTime(freq * 0.4, endTime);
+  // osc.frequency.linearRampToValueAtTime(freq * 0.7, endTime);
   osc.connect(dist);
   osc.start(startTime);
   osc.stop(endTime);
