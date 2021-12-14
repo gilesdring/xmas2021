@@ -30,7 +30,7 @@ dist.oversample = '4x';
 export const playNote = (freq) => {
   const osc = ctx.createOscillator();
   const startTime = ctx.currentTime;
-  const endTime = startTime + 0.1;
+  const endTime = startTime + 0.2;
   env.gain.setValueAtTime(1, startTime);
   osc.frequency.setValueAtTime(freq, startTime);
   env.gain.linearRampToValueAtTime(0, endTime);
