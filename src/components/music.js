@@ -1,3 +1,4 @@
+import { ctx } from './audio-context';
 import { playNote } from './synth';
 
 import { notes, durations } from './scores/rudolph-the-red-nosed-reindeer';
@@ -12,8 +13,10 @@ function* score() {
 }
 
 const tune = score();
+let playing = false;
 
 const playSequence = () => {
+  if (!playing) return;
   const [ freq, duration ] = tune.next().value;
   playNote(freq);
   const event = new CustomEvent('playnote', { detail: { freq, duration } })
@@ -22,5 +25,12 @@ const playSequence = () => {
 }
 
 export const start = () => {
+  playing = true;
+  ctx.resume();
   setTimeout(playSequence, 1000);
+}
+
+export const stop = () => {
+  playing = false;
+  ctx.suspend();
 }

@@ -1,5 +1,4 @@
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const ctx = new AudioContext();
+import { ctx } from './audio-context';
 
 const dist = ctx.createWaveShaper();
 const limiter = ctx.createDynamicsCompressor();

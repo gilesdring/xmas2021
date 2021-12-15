@@ -200,8 +200,10 @@
   }
 
   const tune = score();
+  let playing = false;
 
   const playSequence = () => {
+    if (!playing) return;
     const [ freq, duration ] = tune.next().value;
     playNote(freq);
     const event = new CustomEvent('playnote', { detail: { freq, duration } });
@@ -210,7 +212,14 @@
   };
 
   const start = () => {
+    playing = true;
+    ctx.resume();
     setTimeout(playSequence, 1000);
+  };
+
+  const stop = () => {
+    playing = false;
+    ctx.suspend();
   };
 
   const elves = [];
@@ -284,6 +293,27 @@
   window.draw = draw;
   window.windowResized = windowResized;
 
-  start();
+  const soundToggle = document.querySelector('#sound-toggle');
+  let soundPlaying = false;
+
+  const toggleSound = () => {
+    if (soundPlaying) {
+      stop();
+      return false;
+    }
+    start();
+    return true;
+  };
+
+  const setButtonState = () => {
+    soundToggle.innerHTML = soundPlaying ? 'Stop sound' : 'Start sound';
+  };
+
+  soundToggle.addEventListener('click', () => {
+    soundPlaying = toggleSound();
+    setButtonState();
+  });
+
+  setButtonState();
 
 })();

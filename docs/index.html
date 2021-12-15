@@ -17,7 +17,7 @@
         --text: hsl(0, 60%, 50%);
         /* --text-shadow: hsl(120, 18%, 76%); */
         --text-shadow: hsl(120, 10%, 60%);
-        --background: hsl(240, 60%, 85%);
+        --background: hsl(171, 58%, 81%);
         --link: hsl(0, 60%, 60%);
         --link-hover: hsl(0, 60%, 95%);
       }
@@ -28,11 +28,20 @@
         font-size: 20px;
         text-shadow: 5px 5px 3px var(--text-shadow);
       }
+      button {
+        font-family: inherit;
+        font-size: inherit;
+        padding: 0.5em 1em;
+        background-color: var(--text);
+        color: white;
+        border-radius: 2em;
+      }
       body {
         height: 100%;
         background-color: var(--background);
       }
-      a, a:visited {
+      a,
+      a:visited {
         color: var(--link);
       }
       a:hover {
@@ -51,30 +60,50 @@
       .p5Canvas {
         z-index: -100;
       }
-      header, footer {
+      header,
+      footer {
         position: fixed;
-        left: 0; right: 0;
+        left: 0;
+        right: 0;
         text-align: center;
         padding: 1em;
       }
       header {
-        top: 0;
+        top: 2.5rem;
         font-size: 1.2em;
       }
-      footer { 
+      footer {
         bottom: 0;
+      }
+      #controls {
+        position: fixed;
+        top: 0;
+        right: 0;
+        padding: 1rem;
+      }
+      #controls button {
+        width: 8em;
       }
     </style>
   </head>
   <body>
-    <script src="bundle.js"></script>
     <main role="main">
       <header>
         <h1>Happy Christmas from the Drings!</h1>
       </header>
       <footer>
-        <p>We're <a href="https://england.shelter.org.uk/donate">donating to Shelter</a> in lieu of sending cards this year.</p>
+        <p>
+          We're
+          <a href="https://england.shelter.org.uk/donate"
+            >donating to Shelter</a
+          >
+          in lieu of sending cards this year.
+        </p>
       </footer>
     </main>
+    <aside id="controls">
+      <button id="sound-toggle">Toggle Sound</button>
+    </aside>
+  <script src="bundle.js"></script>
   </body>
 </html>
