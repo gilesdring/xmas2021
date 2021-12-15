@@ -271,7 +271,6 @@
     }
 
     drawRightArm() {
-      this.armAngle += 10;
       push();
       translate(this.x * width, this.y * height);
       scale(this.scale);
