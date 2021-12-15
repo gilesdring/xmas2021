@@ -13,12 +13,21 @@
       rel="stylesheet"
     />
     <style>
+      :root {
+        --text: rgb(197, 55, 55);
+        --text-shadow: hsl(120, 46%, 46%);
+        --background: hsl(239, 65%, 84%);
+      }
       html {
         height: 100%;
+        color: var(--text);
         font-family: 'Mountains of Christmas', cursive;
+        font-size: 20px;
+        text-shadow: 1px 1px 5px var(--text-shadow);
       }
       body {
         height: 100%;
+        background-color: var(--background);
       }
       * {
         padding: 0;
@@ -41,6 +50,7 @@
       }
       header {
         top: 0;
+        font-size: 1.2em;
       }
       footer { 
         bottom: 0;
