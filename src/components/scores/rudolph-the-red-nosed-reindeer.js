@@ -1,3 +1,5 @@
+import { noteToFreq } from '../midi-notes';
+
 export const notes = [
   'C4', 'D4', 'C4', 'A3', 'F4', 'D4', 'C4',
   'C4', 'D4', 'C4', 'D4', 'C4', 'F4', 'E4',
@@ -18,7 +20,7 @@ export const notes = [
   'C4', 'D4', 'C4', 'D4', 'C4', 'F4', 'E4',
   'A#3', 'C4', 'A#3', 'G3', 'E4', 'D4', 'C4',
   'C4', 'D4', 'C4', 'D4', 'C4', 'G4', 'F4',
-];
+].map(noteToFreq);
 
 export const durations = [
   250, 500, 200, 500, 500, 500, 1500,
