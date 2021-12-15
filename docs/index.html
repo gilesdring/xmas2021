@@ -14,20 +14,29 @@
     />
     <style>
       :root {
-        --text: rgb(197, 55, 55);
-        --text-shadow: hsl(120, 46%, 46%);
-        --background: hsl(239, 65%, 84%);
+        --text: hsl(0, 60%, 50%);
+        /* --text-shadow: hsl(120, 18%, 76%); */
+        --text-shadow: hsl(120, 10%, 60%);
+        --background: hsl(240, 60%, 85%);
+        --link: hsl(0, 60%, 60%);
+        --link-hover: hsl(0, 60%, 95%);
       }
       html {
         height: 100%;
         color: var(--text);
         font-family: 'Mountains of Christmas', cursive;
         font-size: 20px;
-        text-shadow: 1px 1px 5px var(--text-shadow);
+        text-shadow: 5px 5px 3px var(--text-shadow);
       }
       body {
         height: 100%;
         background-color: var(--background);
+      }
+      a, a:visited {
+        color: var(--link);
+      }
+      a:hover {
+        color: var(--link-hover);
       }
       * {
         padding: 0;
@@ -64,7 +73,7 @@
         <h1>Happy Christmas from the Drings!</h1>
       </header>
       <footer>
-        <p>We're donating to Shelter in lieu of sending cards this year.</p>
+        <p>We're <a href="https://england.shelter.org.uk/donate">donating to Shelter</a> in lieu of sending cards this year.</p>
       </footer>
     </main>
   </body>
