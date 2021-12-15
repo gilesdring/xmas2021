@@ -21,17 +21,22 @@ class Elf {
     noStroke();
     fill(this.color);
     rect(
-      this.x * windowWidth,
-      this.y * windowHeight,
-      this.width * windowWidth,
-      this.height * windowHeight
+      this.x * width,
+      this.y * height,
+      this.width * width,
+      this.height * height,
     );
     pop();
   }
 }
 
+function canvasSize() {
+  return min(windowWidth, windowHeight);
+}
+
 export function setup() {
-  createCanvas(windowWidth, windowHeight);
+  const dim = canvasSize();
+  createCanvas(dim, dim);
   clear();
   elves.push(
     new Elf({ x: 0.15, y: 0.15, width: 0.2, height: 0.2, color: 0 }),
@@ -56,5 +61,6 @@ export function draw() {
 }
 
 export function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  const dim = canvasSize();
+  resizeCanvas(dim, dim);
 }
