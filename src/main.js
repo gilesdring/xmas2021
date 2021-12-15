@@ -1,6 +1,7 @@
 import { start as startSound, stop as stopSound } from './components/music';
-import { setup, draw, windowResized } from './components/sketch';
+import { preload, setup, draw, windowResized } from './components/sketch';
 
+window.preload = preload;
 window.setup = setup;
 window.draw = draw;
 window.windowResized = windowResized;
