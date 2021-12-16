@@ -241,9 +241,6 @@
       this.height = imgHeight;
       this.baseHeight = 380;
       this.aspect = 0.6;
-      this.base = createGraphics(this.baseHeight * this.aspect, this.baseHeight);
-      this.base.image(sprite.hat, 0, 0);
-      this.base.image(sprite.body, 35, 100);
       this.armAngle = 0;
     }
     get scale() {
@@ -254,7 +251,8 @@
       translate(this.x * width, this.y * height);
       imageMode(CENTER);
       scale(this.scale);
-      image(this.base, 0, 0);
+      image(sprite.hat, 0, 0);
+      image(sprite.body, 35, 100);
       pop();
     }
     drawArms() {
