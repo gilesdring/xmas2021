@@ -313,6 +313,7 @@
     sprite.body = loadImage('assets/body.svg');
     sprite.leftArm = loadImage('assets/left-hand.svg');
     sprite.rightArm = loadImage('assets/right-hand.svg');
+    sprite.table = loadImage('assets/table.svg');
   }
 
   function setup() {
@@ -320,20 +321,28 @@
     createCanvas(dim, dim);
     clear();
     elves.push(
-      new Elf({ x: 0.2, y: 0.5, height: 0.25 }),
-      new Elf({ x: 0.4, y: 0.5, height: 0.25 }),
-      new Elf({ x: 0.6, y: 0.5, height: 0.25 }),
-      new Elf({ x: 0.8, y: 0.5, height: 0.25 })
+      new Elf({ x: 0.29, y: 0.5, height: 0.3 }),
+      new Elf({ x: 0.43, y: 0.5, height: 0.3 }),
+      new Elf({ x: 0.57, y: 0.5, height: 0.3 }),
+      new Elf({ x: 0.71, y: 0.5, height: 0.3 })
     );
     const currentElf = activeElf(elves.length);
     const handleNote = (e) => elves[currentElf.next().value].animate();
     window.addEventListener('playnote', handleNote);
     clear();
   }
-
+  function drawTable() {
+    push();
+    imageMode(CENTER);
+    translate(width/2, height * 0.61);
+    scale(0.8 * width / sprite.table.width);
+    image(sprite.table, 0, 0);
+    pop();
+  }
   function draw() {
     clear();
     elves.forEach((e) => e.draw());
+    drawTable();
     elves.forEach((e) => e.drawArms());
   }
 
