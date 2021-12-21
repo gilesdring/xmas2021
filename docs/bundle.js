@@ -201,6 +201,11 @@
 
   const tune = score();
   let playing = false;
+  let tempo = 1;
+
+  function setTempo(newTempo) {
+    tempo = 120/newTempo;
+  }
 
   const playSequence = () => {
     if (!playing) return;
@@ -208,7 +213,7 @@
     playNote(freq);
     const event = new CustomEvent('playnote', { detail: { freq, duration } });
     window.dispatchEvent(event);
-    setTimeout(playSequence, duration);
+    setTimeout(playSequence, duration * tempo);
   };
 
   const start = () => {
@@ -357,7 +362,9 @@
   window.windowResized = windowResized;
 
   const soundToggle = document.querySelector('#sound-toggle');
+  const speedToggle = document.querySelector('#speed-toggle');
   let soundPlaying = false;
+  let doubleTime = false;
 
   const toggleSound = () => {
     if (soundPlaying) {
@@ -368,12 +375,27 @@
     return true;
   };
 
+  const toggleSpeed = () => {
+    if (doubleTime) {
+      setTempo(120);
+      return false;
+    }
+    setTempo(240);
+    return true;
+  };
+
   const setButtonState = () => {
     soundToggle.innerHTML = soundPlaying ? 'Stop work' : 'Start work';
+    speedToggle.innerHTML = doubleTime ? 'Slow down' : 'Work harder';
   };
 
   soundToggle.addEventListener('click', () => {
     soundPlaying = toggleSound();
+    setButtonState();
+  });
+
+  speedToggle.addEventListener('click', () => {
+    doubleTime = toggleSpeed();
     setButtonState();
   });
 

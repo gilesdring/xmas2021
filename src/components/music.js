@@ -14,6 +14,11 @@ function* score() {
 
 const tune = score();
 let playing = false;
+let tempo = 1;
+
+export function setTempo(newTempo) {
+  tempo = 120/newTempo;
+}
 
 const playSequence = () => {
   if (!playing) return;
@@ -21,7 +26,7 @@ const playSequence = () => {
   playNote(freq);
   const event = new CustomEvent('playnote', { detail: { freq, duration } })
   window.dispatchEvent(event);
-  setTimeout(playSequence, duration);
+  setTimeout(playSequence, duration * tempo);
 }
 
 export const start = () => {
