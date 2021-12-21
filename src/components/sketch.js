@@ -1,57 +1,79 @@
 const elves = [];
 
 function* activeElf(count) {
-  let i = 0;
   while (true) {
-    yield i % count;
-    i++;
+    yield Math.floor(Math.random() * count);
+  }
+}
+function* angleAnimation() {
+  let angle = 0;
+  let frame = 0;
+  while (frame < 9) {
+    yield angle;
+    if (frame < 6) angle-=15;
+    else angle+=30;
+    frame++;
   }
 }
 
 class Elf {
-  constructor({ x, y, width: imgWidth, height: imgHeight, color }) {
+  constructor({ x, y, height: imgHeight, color }) {
     this.color = color;
     this.x = x;
     this.y = y;
-    this.width = imgWidth;
     this.height = imgHeight;
     this.baseHeight = 380;
     this.aspect = 0.6;
-    this.armAngle = 0;
   }
   get scale() {
     return (this.height * height) / this.baseHeight;
   }
+  get width() {
+    return this.height * this.aspect;
+  }
+  get pos() {
+    return {
+      x: (this.x - this.width / 2) * width,
+      y: (this.y - this.height / 2) * height,
+    };
+  }
+  animate() {
+    this.animation = angleAnimation();
+  }
+  get armAngle() {
+    if (!this.animation) return 0;
+    return this.animation.next().value;
+  }
   draw() {
     push();
-    translate(this.x * width, this.y * height);
-    imageMode(CENTER);
+    translate(this.pos.x, this.pos.y);
     scale(this.scale);
-    image(sprite.hat, 0, 0);
     image(sprite.body, 35, 100);
+    image(sprite.hat, 0, 0);
     pop();
   }
   drawArms() {
+    push();
+    translate(this.pos.x, this.pos.y);
     this.drawLeftArm();
     this.drawRightArm();
+    pop();
   }
   drawLeftArm() {
     push();
-    translate(this.x * width, this.y * height);
     scale(this.scale);
-    translate(20, 0);
+    translate(135, 195);
     image(sprite.leftArm, 0, 0);
     pop();
   }
 
   drawRightArm() {
     push();
-    translate(this.x * width, this.y * height);
     scale(this.scale);
     angleMode(DEGREES);
-    translate(-55, 42);
+    translate(60, 237);
     rotate(this.armAngle);
-    image(sprite.rightArm, -12, -20);
+    image(sprite.rightArm, -15, -20);
     pop();
   }
 }
@@ -74,19 +96,13 @@ export function setup() {
   createCanvas(dim, dim);
   clear();
   elves.push(
-    new Elf({ x: 0.5, y: 0.5, height: 0.5 })
-    // new Elf({ x: 0.65, y: 0.15, width: 0.2, height: 0.2, color: 0 }),
-    // new Elf({ x: 0.15, y: 0.65, width: 0.2, height: 0.2, color: 0 }),
-    // new Elf({ x: 0.65, y: 0.65, width: 0.2, height: 0.2, color: 0 })
+    new Elf({ x: 0.2, y: 0.5, height: 0.25 }),
+    new Elf({ x: 0.4, y: 0.5, height: 0.25 }),
+    new Elf({ x: 0.6, y: 0.5, height: 0.25 }),
+    new Elf({ x: 0.8, y: 0.5, height: 0.25 })
   );
   const currentElf = activeElf(elves.length);
-  const handleNote = (e) => {
-    elves[currentElf.next().value].color = color(
-      random(255),
-      random(255),
-      random(255)
-    );
-  };
+  const handleNote = (e) => elves[currentElf.next().value].animate();
   window.addEventListener('playnote', handleNote);
   clear();
 }
@@ -101,3 +117,4 @@ export function windowResized() {
   const dim = canvasSize();
   resizeCanvas(dim, dim);
 }
+
