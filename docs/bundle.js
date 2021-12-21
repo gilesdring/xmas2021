@@ -369,7 +369,7 @@
   };
 
   const setButtonState = () => {
-    soundToggle.innerHTML = soundPlaying ? 'Stop sound' : 'Start sound';
+    soundToggle.innerHTML = soundPlaying ? 'Stop work' : 'Start work';
   };
 
   soundToggle.addEventListener('click', () => {
