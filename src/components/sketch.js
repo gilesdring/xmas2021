@@ -1,4 +1,7 @@
+import { Reindog } from './sprites/Reindog';
+
 const elves = [];
+let deer = undefined;
 
 function* activeElf(count) {
   while (true) {
@@ -90,6 +93,9 @@ export function preload() {
   sprite.leftArm = loadImage('assets/left-hand.svg');
   sprite.rightArm = loadImage('assets/right-hand.svg');
   sprite.table = loadImage('assets/table.svg');
+  sprite.deerBody = loadImage('assets/deer-body.svg');
+  sprite.deerAntler = loadImage('assets/deer-antlers.svg');
+  sprite.deerNose = loadImage('assets/deer-nose.svg');
 }
 
 export function setup() {
@@ -105,6 +111,7 @@ export function setup() {
   const currentElf = activeElf(elves.length);
   const handleNote = (e) => elves[currentElf.next().value].animate();
   window.addEventListener('playnote', handleNote);
+  deer = new Reindog({ x: 0.3, y: 0.8, height: 0.2, sprite });
   clear();
 }
 function drawTable() {
@@ -120,6 +127,7 @@ export function draw() {
   elves.forEach((e) => e.draw());
   drawTable();
   elves.forEach((e) => e.drawArms());
+  deer.draw();
 }
 
 export function windowResized() {
