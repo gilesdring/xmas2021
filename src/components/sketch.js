@@ -86,6 +86,7 @@ function canvasSize() {
 }
 
 const sprite = {};
+const photo = {};
 
 export function preload() {
   sprite.hat = loadImage('assets/hat.svg');
@@ -96,6 +97,7 @@ export function preload() {
   sprite.deerBody = loadImage('assets/deer-body.svg');
   sprite.deerAntler = loadImage('assets/deer-antlers.svg');
   sprite.deerNose = loadImage('assets/deer-nose.svg');
+  photo.delia = loadImage('assets/delia.png');
 }
 
 export function setup() {
@@ -111,7 +113,7 @@ export function setup() {
   const currentElf = activeElf(elves.length);
   const handleNote = (e) => elves[currentElf.next().value].animate();
   window.addEventListener('playnote', handleNote);
-  deer = new Reindog({ x: 0.3, y: 0.8, height: 0.2, sprite });
+  deer = new Reindog({ x: 0.3, y: 0.8, height: 0.2, sprite, face: photo.delia });
   clear();
 }
 function drawTable() {

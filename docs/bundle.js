@@ -227,15 +227,24 @@
     ctx.suspend();
   };
 
+  function* angleGenerator() {
+    let i = 0;
+    while(true) {
+      yield sin(i);
+      i+=10;
+    }
+  }
+
   class Reindog {
-    constructor({ x, y, height: imgHeight, sprite }) {
+    constructor({ x, y, height: imgHeight, sprite, face }) {
       this.x = x;
       this.y = y;
       this.height = imgHeight;
       this.baseHeight = 200;
       this.aspect = 1.5;
-      console.log(sprite);
       this.sprite = sprite;
+      this.face = face;
+      this.angleGen = angleGenerator();
     }
     get scale() {
       return (this.height * height) / this.baseHeight
@@ -249,14 +258,25 @@
         y: (this.y - this.height / 2) * height,
       };
     }
+    get headAngle() {
+      return (this.angleGen.next().value - 0.5) * 10;
+    }
     draw() {
       push();
       translate(this.pos.x, this.pos.y);
       imageMode(CORNER);
       scale(this.scale);
       image(this.sprite.deerBody, 0, 100);
-      image(this.sprite.deerAntler, 80, 0);
-      image(this.sprite.deerNose, 220, 80);
+
+      translate(160, 100);
+      rotate(this.headAngle);
+      image(this.sprite.deerAntler, -75, -100);
+      push();
+      imageMode(CENTER);
+      scale(0.16);
+      image(this.face, 0, 0);
+      pop();
+      image(this.sprite.deerNose, -5, 5);
       pop();
     }
   }
@@ -347,6 +367,7 @@
   }
 
   const sprite = {};
+  const photo = {};
 
   function preload() {
     sprite.hat = loadImage('assets/hat.svg');
@@ -357,6 +378,7 @@
     sprite.deerBody = loadImage('assets/deer-body.svg');
     sprite.deerAntler = loadImage('assets/deer-antlers.svg');
     sprite.deerNose = loadImage('assets/deer-nose.svg');
+    photo.delia = loadImage('assets/delia.png');
   }
 
   function setup() {
@@ -372,7 +394,7 @@
     const currentElf = activeElf(elves.length);
     const handleNote = (e) => elves[currentElf.next().value].animate();
     window.addEventListener('playnote', handleNote);
-    deer = new Reindog({ x: 0.3, y: 0.8, height: 0.2, sprite });
+    deer = new Reindog({ x: 0.3, y: 0.8, height: 0.2, sprite, face: photo.delia });
     clear();
   }
   function drawTable() {
