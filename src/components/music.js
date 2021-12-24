@@ -17,8 +17,10 @@ let playing = false;
 let tempo = 1;
 
 export function setTempo(newTempo) {
-  tempo = 120/newTempo;
+  tempo = 75/newTempo;
 }
+
+setTempo(120);
 
 const playSequence = () => {
   if (!playing) return;

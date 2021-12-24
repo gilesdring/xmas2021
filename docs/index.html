@@ -26,15 +26,23 @@
         color: var(--text);
         font-family: 'Mountains of Christmas', cursive;
         font-size: 20px;
-        text-shadow: 5px 5px 3px var(--text-shadow);
+        /* text-shadow: 5px 5px 3px var(--text-shadow); */
       }
       button {
         font-family: inherit;
         font-size: inherit;
-        padding: 0.5em 1em;
+        padding: 0.2em 0.5em;
+        border: none;
+        box-shadow: 5px 5px 3px var(--text-shadow);
         background-color: var(--text);
         color: white;
         border-radius: 2em;
+        margin-bottom: 4px;
+      }
+      button:active {
+        box-shadow: 1px 1px 3px var(--text-shadow);
+        margin-top: 4px;
+        margin-bottom: 0;
       }
       body {
         height: 100%;
@@ -60,36 +68,53 @@
       .p5Canvas {
         z-index: -100;
       }
-      header,
-      footer {
+      header{
         position: fixed;
         left: 0;
         right: 0;
+        top: 0;
         text-align: center;
         padding: 1em;
-      }
-      header {
-        top: 2.5rem;
         font-size: 1.2em;
       }
       footer {
+        position: fixed;
         bottom: 0;
+        right: 0;
+        left: 50%;
+        padding: 1em;
       }
       #controls {
         position: fixed;
-        top: 0;
-        right: 0;
+        bottom: 0;
+        left: 0;
+        right: 50%;
         padding: 1rem;
+        font-size: 1em;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      @media only screen and (max-width: 900px) and (orientation: landscape) {
+        #controls {
+          right: 75%;
+        }
+      }
+      @media only screen and (min-width: 1400px) {
+        h1 {
+          font-size: 5rem;
+        }
       }
       #controls button {
-        width: 8em;
+        width: 7em;
+        height: 2em;
       }
     </style>
   </head>
   <body>
     <main role="main">
       <header>
-        <h1>Happy Christmas from the Drings!</h1>
+        <h1>Happy Christmas from the Drings!</h2>
       </header>
       <footer>
         <p>
@@ -100,11 +125,11 @@
           in lieu of sending cards this year.
         </p>
       </footer>
+      <aside id="controls">
+        <button id="sound-toggle">Start Work</button>
+        <button id="speed-toggle">Faster!</button>
+      </aside>
     </main>
-    <aside id="controls">
-      <button id="sound-toggle">Start Work</button>
-      <button id="speed-toggle">Double Time</button>
-    </aside>
   <script src="bundle.js"></script>
   </body>
 </html>

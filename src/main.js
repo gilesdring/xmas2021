@@ -31,7 +31,7 @@ const toggleSpeed = () => {
 
 const setButtonState = () => {
   soundToggle.innerHTML = soundPlaying ? 'Stop work' : 'Start work';
-  speedToggle.innerHTML = doubleTime ? 'Slow down' : 'Work harder';
+  speedToggle.innerHTML = doubleTime ? 'Slower!' : 'Faster!';
 }
 
 soundToggle.addEventListener('click', () => {
