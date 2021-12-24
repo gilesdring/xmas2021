@@ -1,4 +1,4 @@
-function* angleGenerator() {
+export function* angleGenerator() {
   let i = 0;
   while(true) {
     yield sin(i);
@@ -30,7 +30,7 @@ export class Reindog {
     };
   }
   get headAngle() {
-    return (this.angleGen.next().value - 0.5) * 10;
+    return (this.angleGen.next().value) * 10;
   }
   draw() {
     push();

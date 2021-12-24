@@ -1,3 +1,4 @@
+import { Elf } from './sprites/Elf';
 import { Reindog } from './sprites/Reindog';
 
 const elves = [];
@@ -6,78 +7,6 @@ let deer = undefined;
 function* activeElf(count) {
   while (true) {
     yield Math.floor(Math.random() * count);
-  }
-}
-function* angleAnimation() {
-  let angle = 0;
-  let frame = 0;
-  while (frame < 9) {
-    yield angle;
-    if (frame < 6) angle-=15;
-    else angle+=30;
-    frame++;
-  }
-}
-
-class Elf {
-  constructor({ x, y, height: imgHeight, color }) {
-    this.color = color;
-    this.x = x;
-    this.y = y;
-    this.height = imgHeight;
-    this.baseHeight = 380;
-    this.aspect = 0.6;
-  }
-  get scale() {
-    return (this.height * height) / this.baseHeight;
-  }
-  get width() {
-    return this.height * this.aspect;
-  }
-  get pos() {
-    return {
-      x: (this.x - this.width / 2) * width,
-      y: (this.y - this.height / 2) * height,
-    };
-  }
-  animate() {
-    this.animation = angleAnimation();
-  }
-  get armAngle() {
-    if (!this.animation) return 0;
-    return this.animation.next().value;
-  }
-  draw() {
-    push();
-    translate(this.pos.x, this.pos.y);
-    scale(this.scale);
-    image(sprite.body, 35, 100);
-    image(sprite.hat, 0, 0);
-    pop();
-  }
-  drawArms() {
-    push();
-    translate(this.pos.x, this.pos.y);
-    this.drawLeftArm();
-    this.drawRightArm();
-    pop();
-  }
-  drawLeftArm() {
-    push();
-    scale(this.scale);
-    translate(135, 195);
-    image(sprite.leftArm, 0, 0);
-    pop();
-  }
-
-  drawRightArm() {
-    push();
-    scale(this.scale);
-    angleMode(DEGREES);
-    translate(60, 237);
-    rotate(this.armAngle);
-    image(sprite.rightArm, -15, -20);
-    pop();
   }
 }
 
@@ -98,6 +27,10 @@ export function preload() {
   sprite.deerAntler = loadImage('assets/deer-antlers.svg');
   sprite.deerNose = loadImage('assets/deer-nose.svg');
   photo.delia = loadImage('assets/delia.png');
+  photo.martha = loadImage('assets/m.png');
+  photo.giles = loadImage('assets/g.png');
+  photo.bea = loadImage('assets/b.png');
+  photo.rebecca = loadImage('assets/r.png');
 }
 
 export function setup() {
@@ -105,10 +38,10 @@ export function setup() {
   createCanvas(dim, dim);
   clear();
   elves.push(
-    new Elf({ x: 0.29, y: 0.5, height: 0.3 }),
-    new Elf({ x: 0.43, y: 0.5, height: 0.3 }),
-    new Elf({ x: 0.57, y: 0.5, height: 0.3 }),
-    new Elf({ x: 0.71, y: 0.5, height: 0.3 })
+    new Elf({ x: 0.29, y: 0.5, height: 0.3, sprite, face: photo.martha }),
+    new Elf({ x: 0.43, y: 0.5, height: 0.3, sprite, face: photo.giles }),
+    new Elf({ x: 0.57, y: 0.5, height: 0.3, sprite, face: photo.rebecca, faceScale: 0.2 }),
+    new Elf({ x: 0.71, y: 0.5, height: 0.3, sprite, face: photo.bea })
   );
   const currentElf = activeElf(elves.length);
   const handleNote = (e) => elves[currentElf.next().value].animate();
