@@ -1,4 +1,5 @@
 import serve from 'rollup-plugin-serve';
+import { terser } from 'rollup-plugin-terser';
 
 const dev = process.env.NODE_ENV === 'development';
 
@@ -9,6 +10,7 @@ export default {
     format: 'iife'
   },
   plugins: [
+    !dev && terser(),
     dev && serve({ browser: true, contentBase: 'docs/' }), 
   ]
 }
