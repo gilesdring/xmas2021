@@ -1,15 +1,4 @@
-import { angleGenerator } from './Reindog';
-
-function* angleAnimation() {
-  let angle = 0;
-  let frame = 0;
-  while (frame < 9) {
-    yield angle;
-    if (frame < 6) angle-=15;
-    else angle+=30;
-    frame++;
-  }
-}
+import { angleGenerator, angleAnimation } from "./animations";
 
 export class Elf {
   constructor({ x, y, height: imgHeight, color, sprite, face }) {

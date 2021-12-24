@@ -1,10 +1,4 @@
-export function* angleGenerator() {
-  let i = 0;
-  while(true) {
-    yield sin(i);
-    i+=10;
-  }
-}
+import { angleGenerator } from './animations';
 
 export class Reindog {
   constructor({ x, y, height: imgHeight, sprite, face }) {
